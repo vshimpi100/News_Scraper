@@ -7,7 +7,9 @@ var Schema = mongoose.Schema;
 // This is similar to a Sequelize model
 var Comment = new Schema({
   // `title` is of type String
-  text: String
+  text: {
+    type: String
+  }
 });
 
 // This creates our model from the above schema, using mongoose's model method

@@ -1,0 +1,55 @@
+<div id="main">
+    <div class="jumbotron text-center" style="background-image:{{this.img}}">
+        <h1>{{article.title}}</h1>
+        <a href="/">Back to Home</a>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <p>{{article.story}}</p>
+            </div>
+            <a class="btn btn-primary col-3 offset-2 text-white" style="margin-bottom:40px;" id="commentBtn">Write a
+                Comment</a>
+            <a href={{article.link}} class="btn btn-primary col-3 offset-2" style="margin-bottom:40px;">See story at
+                AJC</a>
+        </div>
+        <div id="commentBox" style="display:none;margin-bottom:40px;" class="row">
+            <form class="form col-12 text-center">
+                <input type="textarea" placeholder="Your comment here..." id="commentForm" class="col-8" />
+                <button class="btn btn-primary text-white submit" id="submit" reference={{article._id}}
+                    class="col-3">Submit</button>
+            </form>
+        </div>
+        <h2>Comments</h2>
+        <div class="row">
+            {{#if article.comments}}
+            {{#each article.comments}}
+            <div class="col-12 card" style="border: 3px solid lightblue; margin-bottom: 10px;">
+                {{this.text}}
+            </div>
+            {{/each}}
+            {{/if}}
+        </div>
+    </div>
+</div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    $("#commentBtn").click(() => {
+        console.log('commenting')
+        $("#commentBox").css("display", "block")
+    })
+
+    $(".submit").click((event) => {
+        event.preventDefault();
+        let text = $('#commentForm').val();
+        let url = '/comment/' + $('#submit').attr("reference");
+        console.log(text + '\n' + url);
+        let data = { text: text }
+        $.post(url, data)
+        $("#commentBox").css("display", "none");
+        location.reload();
+    })
+</script>

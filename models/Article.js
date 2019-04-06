@@ -25,10 +25,10 @@ var ArticleSchema = new Schema({
     required: true
   },
   // comments will hold reference to comment
-  note: {
+  comments: [{
     type: Schema.Types.ObjectId,
     ref: "Comment"
-  }
+  }]
 });
 
 // This creates our model from the above schema, using mongoose's model method
